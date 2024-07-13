@@ -17,16 +17,20 @@ import vn.hoidanit.jobhunter.domain.response.job.ResCreateJobDTO;
 import vn.hoidanit.jobhunter.domain.response.job.ResUpdateJobDto;
 import vn.hoidanit.jobhunter.repository.CompanyRepository;
 import vn.hoidanit.jobhunter.repository.JobRepository;
+import vn.hoidanit.jobhunter.repository.SkillRepository;
 
 @Service
 public class JobService {
     private final JobRepository jobRepository;
     private final CompanyRepository companyRepository;
+    private final SkillRepository skillRepository;
 
     public JobService(JobRepository jobRepository,
-            CompanyRepository companyRepository) {
+            CompanyRepository companyRepository,
+            SkillRepository skillRepository) {
         this.jobRepository = jobRepository;
         this.companyRepository = companyRepository;
+        this.skillRepository = skillRepository;
     }
 
     public ResCreateJobDTO create(Job j) {
@@ -35,7 +39,7 @@ public class JobService {
             List<Long> reqSkills = j.getSkills()
                     .stream().map(x -> x.getId())
                     .collect(Collectors.toList());
-            List<Skill> dbSkills = this.jobRepository.findByIdIn(reqSkills);
+            List<Skill> dbSkills = this.skillRepository.findByIdIn(reqSkills);
             j.setSkills(dbSkills);
         }
         // check company
@@ -83,7 +87,7 @@ public class JobService {
             List<Long> reqSkills = j.getSkills()
                     .stream().map(x -> x.getId())
                     .collect(Collectors.toList());
-            List<Skill> dbSkills = this.jobRepository.findByIdIn(reqSkills);
+            List<Skill> dbSkills = this.skillRepository.findByIdIn(reqSkills);
             jobInDB.setSkills(dbSkills);
         }
 

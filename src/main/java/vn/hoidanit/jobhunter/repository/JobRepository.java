@@ -11,6 +11,5 @@ import vn.hoidanit.jobhunter.domain.Skill;
 
 @Repository
 public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificationExecutor<Job> {
-    List<Skill> findByIdIn(List<Long> id);
 
 }

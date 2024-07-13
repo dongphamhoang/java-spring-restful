@@ -66,14 +66,13 @@ public class JobController {
         return ResponseEntity.ok().body(null);
     }
 
-    @GetMapping("/job/{id}")
+    @GetMapping("/jobs/{id}")
     @ApiMessage("Get a job by id")
     public ResponseEntity<Job> getJob(@PathVariable("id") long id) throws IdInvalidException {
         Optional<Job> currentJob = this.jobService.fetchJobById(id);
         if (!currentJob.isPresent()) {
             throw new IdInvalidException("Job not found");
         }
-        this.jobService.delete(id);
 
         return ResponseEntity.ok().body(currentJob.get());
     }
