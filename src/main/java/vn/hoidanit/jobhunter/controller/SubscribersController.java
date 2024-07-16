@@ -12,14 +12,15 @@ import vn.hoidanit.jobhunter.util.error.IdInvalidException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1")
-public class SubscriberController {
+public class SubscribersController {
     private final SubscriberService subscriberService;
 
-    public SubscriberController(SubscriberService subscriberService) {
+    public SubscribersController(SubscriberService subscriberService) {
         this.subscriberService = subscriberService;
     }
 
@@ -35,7 +36,7 @@ public class SubscriberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.subscriberService.create(sub));
     }
 
-    @PostMapping("/subscribers")
+    @PutMapping("/subscribers")
     @ApiMessage("Update a subscribers")
     public ResponseEntity<Subscriber> update(@RequestBody Subscriber subRequest) throws IdInvalidException {
         // check id
